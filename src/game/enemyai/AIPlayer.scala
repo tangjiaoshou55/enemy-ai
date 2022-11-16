@@ -93,7 +93,16 @@ class AIPlayer(val id: String) {
   // TODO: Replace this placeholder code with your own
   def makeDecision(gameState: AIGameState, decisionTree: BinaryTreeNode[DecisionTreeValue]): AIAction = {
     MovePlayer(this.id, Math.random() - 0.5, Math.random() - 0.5)
+
+    if (decisionTree.value.check(gameState) > 0) {
+      makeDecision(gameState, decisionTree.right)
+    } else if (decisionTree.value.check(gameState) < 0) {
+      makeDecision(gameState, decisionTree.left)
+    } else {
+      decisionTree.value.action(gameState)
+    }
   }
+
 
 
   // TODO: Replace this placeholder code with your own
